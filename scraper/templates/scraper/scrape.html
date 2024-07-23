@@ -1,0 +1,13 @@
+<!-- scraper/templates/scraper/scrape.html -->
+{% extends 'scraper/base.html' %}
+
+{% block title %}Scrape Emails{% endblock %}
+
+{% block content %}
+    <h1>Scrape Emails</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Scrape</button>
+    </form>
+    {% endblock %}

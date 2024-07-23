@@ -1,0 +1,12 @@
+{% extends 'scraper/base.html' %}
+
+{% block title %}Email List{% endblock %}
+
+{% block content %}
+    <h1>Email List</h1>
+    <ul>
+        {% for email in emails %}
+            <li>{{ email.email }} (from {{ email.url }})</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
