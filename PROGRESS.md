@@ -18,7 +18,7 @@ the machine was online. The backlog is applied from top to bottom.
 - [x] Add search and domain filtering to the email list
 - [x] Add delete action for individual emails
 - [x] Bulk scrape multiple URLs in one go
-- [ ] Normalize and validate URLs before scraping
+- [x] Normalize and validate URLs before scraping
 - [ ] Respect robots.txt when scraping
 - [ ] Throttle requests to be polite to source sites
 - [ ] Expand test coverage for services and new views
