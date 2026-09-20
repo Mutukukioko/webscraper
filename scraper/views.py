@@ -1,7 +1,7 @@
 from django.core.paginator import Paginator
 from django.shortcuts import redirect, render
 
-from .export import emails_to_csv_response
+from .export import emails_to_csv_response, emails_to_json_response
 from .forms import BulkScrapeForm, ScrapeForm
 from .models import Email
 from .services import scrape_and_save, scrape_many_urls
@@ -47,6 +47,8 @@ def _filtered_emails(request):
 
 def email_list_view(request):
     emails, query, domain = _filtered_emails(request)
+    if request.GET.get("export") == "json":
+        return emails_to_json_response(emails)
     if request.GET.get("export") == "csv":
         return emails_to_csv_response(emails)
     page_obj = Paginator(emails, 50).get_page(request.GET.get("page"))

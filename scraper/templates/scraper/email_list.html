@@ -12,6 +12,8 @@
     </form>
     <p>
         <a href="{% url 'email_list' %}?{% if q %}q={{ q }}&{% endif %}{% if domain %}domain={{ domain }}&{% endif %}export=csv">Download as CSV</a>
+        |
+        <a href="{% url 'email_list' %}?{% if q %}q={{ q }}&{% endif %}{% if domain %}domain={{ domain }}&{% endif %}export=json">Download as JSON</a>
     </p>
     <ul>
         {% for email in page_obj %}

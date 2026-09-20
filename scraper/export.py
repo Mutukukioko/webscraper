@@ -1,6 +1,6 @@
 import csv
 
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 
 
 def emails_to_csv_response(emails):
@@ -11,3 +11,8 @@ def emails_to_csv_response(emails):
     for email in emails:
         writer.writerow([email.email, email.url])
     return response
+
+
+def emails_to_json_response(emails):
+    payload = [{"email": email.email, "url": email.url} for email in emails]
+    return JsonResponse({"count": len(payload), "emails": payload})
