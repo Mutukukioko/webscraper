@@ -4,23 +4,31 @@
 
 {% block content %}
     <h1>Email List</h1>
-    <p><a href="{% url 'email_list' %}?export=csv">Download as CSV</a></p>
+    <form method="get" class="search-form">
+        <input type="text" name="q" value="{{ q }}" placeholder="Search emails...">
+        <input type="text" name="domain" value="{{ domain }}" placeholder="Filter by domain">
+        <button type="submit">Filter</button>
+        <a href="{% url 'email_list' %}">Reset</a>
+    </form>
+    <p>
+        <a href="{% url 'email_list' %}?{% if q %}q={{ q }}&{% endif %}{% if domain %}domain={{ domain }}&{% endif %}export=csv">Download as CSV</a>
+    </p>
     <ul>
         {% for email in page_obj %}
             <li>{{ email.email }} (from {{ email.url }})</li>
         {% empty %}
-            <li>No emails found yet.</li>
+            <li>No emails match your filters.</li>
         {% endfor %}
     </ul>
 
     {% if page_obj.has_other_pages %}
         <div class="pagination">
             {% if page_obj.has_previous %}
-                <a href="?page={{ page_obj.previous_page_number }}">&laquo; Previous</a>
+                <a href="?page={{ page_obj.previous_page_number }}&q={{ q }}&domain={{ domain }}">&laquo; Previous</a>
             {% endif %}
             <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
             {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}">Next &raquo;</a>
+                <a href="?page={{ page_obj.next_page_number }}&q={{ q }}&domain={{ domain }}">Next &raquo;</a>
             {% endif %}
         </div>
     {% endif %}

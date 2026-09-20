@@ -22,12 +22,27 @@ def scrape_view(request):
     return render(request, "scraper/scrape.html", {"form": form})
 
 
+def _filtered_emails(request):
+    emails = Email.objects.all().order_by("email")
+    query = request.GET.get("q", "").strip()
+    domain = request.GET.get("domain", "").strip()
+    if query:
+        emails = emails.filter(email__icontains=query)
+    if domain:
+        emails = emails.filter(email__iendswith="@" + domain.lstrip("@"))
+    return emails, query, domain
+
+
 def email_list_view(request):
-    emails = Email.objects.all()
+    emails, query, domain = _filtered_emails(request)
     if request.GET.get("export") == "csv":
         return emails_to_csv_response(emails)
     page_obj = Paginator(emails, 50).get_page(request.GET.get("page"))
-    return render(request, "scraper/email_list.html", {"page_obj": page_obj})
+    return render(request, "scraper/email_list.html", {
+        "page_obj": page_obj,
+        "q": query,
+        "domain": domain,
+    })
 
 
 def stats_view(request):
