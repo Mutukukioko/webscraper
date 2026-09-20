@@ -1,0 +1,20 @@
+{% extends 'scraper/base.html' %}
+
+{% block title %}Scraper Stats{% endblock %}
+
+{% block content %}
+    <h1>Scraper Stats</h1>
+    <ul>
+        <li>Total emails: {{ total }}</li>
+        <li>Distinct websites: {{ url_count }}</li>
+        <li>Distinct domains: {{ domain_count }}</li>
+    </ul>
+    <h2>Top domains</h2>
+    <ol>
+        {% for domain, count in top_domains %}
+            <li>{{ domain }} ({{ count }})</li>
+        {% empty %}
+            <li>No data yet.</li>
+        {% endfor %}
+    </ol>
+{% endblock %}
