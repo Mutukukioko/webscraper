@@ -65,6 +65,12 @@ def delete_email_view(request, pk):
     return redirect("email_list")
 
 
+def domain_detail_view(request, domain):
+    emails = Email.objects.filter(email__iendswith="@" + domain.lstrip("@")).order_by("email")
+    context = {"domain": domain, "emails": emails}
+    return render(request, "scraper/domain_detail.html", context)
+
+
 def stats_view(request):
     emails = Email.objects.all()
     domains = {}

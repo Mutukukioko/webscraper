@@ -12,7 +12,7 @@
     <h2>Top domains</h2>
     <ol>
         {% for domain, count in top_domains %}
-            <li>{{ domain }} ({{ count }})</li>
+            <li><a href="{% url 'domain_detail' domain %}">{{ domain }}</a> ({{ count }})</li>
         {% empty %}
             <li>No data yet.</li>
         {% endfor %}

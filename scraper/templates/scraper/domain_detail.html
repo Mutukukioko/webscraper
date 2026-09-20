@@ -1,0 +1,15 @@
+{% extends 'scraper/base.html' %}
+
+{% block title %}Emails at {{ domain }}{% endblock %}
+
+{% block content %}
+    <h1>Emails at {{ domain }}</h1>
+    <ul>
+        {% for email in emails %}
+            <li>{{ email.email }} (from {{ email.url }})</li>
+        {% empty %}
+            <li>No emails stored for this domain.</li>
+        {% endfor %}
+    </ul>
+    <p><a href="{% url 'stats' %}">Back to stats</a></p>
+{% endblock %}

@@ -25,6 +25,6 @@ the machine was online. The backlog is applied from top to bottom.
 - [x] Add GitHub Actions CI workflow
 - [x] Containerize the app with Docker
 - [x] Export emails as JSON
-- [ ] Per-domain detail page
+- [x] Per-domain detail page
 - [ ] Add logo, favicon and finished base template
 - [ ] Custom 404 error page
