@@ -15,7 +15,13 @@
     </p>
     <ul>
         {% for email in page_obj %}
-            <li>{{ email.email }} (from {{ email.url }})</li>
+            <li>
+                {{ email.email }} (from {{ email.url }})
+                <form method="post" action="{% url 'email_delete' email.pk %}" class="inline-form">
+                    {% csrf_token %}
+                    <button type="submit" onclick="return confirm('Delete {{ email.email }}?')">Delete</button>
+                </form>
+            </li>
         {% empty %}
             <li>No emails match your filters.</li>
         {% endfor %}

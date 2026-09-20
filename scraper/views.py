@@ -45,6 +45,12 @@ def email_list_view(request):
     })
 
 
+def delete_email_view(request, pk):
+    if request.method == "POST":
+        Email.objects.filter(pk=pk).delete()
+    return redirect("email_list")
+
+
 def stats_view(request):
     emails = Email.objects.all()
     domains = {}
