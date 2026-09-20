@@ -14,7 +14,7 @@ the machine was online. The backlog is applied from top to bottom.
 - [x] Extract scraping service layer
 - [x] Add landing index page
 - [x] Register email model in the Django admin
-- [ ] Add pagination to the email list
+- [x] Add pagination to the email list
 - [ ] Add search and domain filtering to the email list
 - [ ] Add delete action for individual emails
 - [ ] Bulk scrape multiple URLs in one go

@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.shortcuts import redirect, render
 
 from .export import emails_to_csv_response
@@ -25,7 +26,8 @@ def email_list_view(request):
     emails = Email.objects.all()
     if request.GET.get("export") == "csv":
         return emails_to_csv_response(emails)
-    return render(request, "scraper/email_list.html", {"emails": emails})
+    page_obj = Paginator(emails, 50).get_page(request.GET.get("page"))
+    return render(request, "scraper/email_list.html", {"page_obj": page_obj})
 
 
 def stats_view(request):
