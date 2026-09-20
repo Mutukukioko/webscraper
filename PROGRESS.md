@@ -27,4 +27,4 @@ the machine was online. The backlog is applied from top to bottom.
 - [x] Export emails as JSON
 - [x] Per-domain detail page
 - [x] Add logo, favicon and finished base template
-- [ ] Custom 404 error page
+- [x] Custom 404 error page

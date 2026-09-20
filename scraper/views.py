@@ -85,3 +85,7 @@ def stats_view(request):
         "top_domains": top_domains,
     }
     return render(request, "scraper/stats.html", context)
+
+
+def handler404(request, exception):
+    return render(request, "scraper/404.html", status=404)
