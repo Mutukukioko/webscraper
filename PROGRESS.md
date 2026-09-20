@@ -19,7 +19,7 @@ the machine was online. The backlog is applied from top to bottom.
 - [x] Add delete action for individual emails
 - [x] Bulk scrape multiple URLs in one go
 - [x] Normalize and validate URLs before scraping
-- [ ] Respect robots.txt when scraping
+- [x] Respect robots.txt when scraping
 - [ ] Throttle requests to be polite to source sites
 - [ ] Expand test coverage for services and new views
 - [ ] Add GitHub Actions CI workflow

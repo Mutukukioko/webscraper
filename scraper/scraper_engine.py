@@ -26,8 +26,27 @@ def normalize_url(url):
     return url
 
 
+def allowed_by_robots(url):
+    parsed = urllib.parse.urlparse(url)
+    robots_url = "{}://{}/robots.txt".format(parsed.scheme, parsed.netloc)
+    try:
+        response = requests.get(robots_url, timeout=TIMEOUT_SECONDS, headers=HEADERS)
+    except (requests.RequestException, OSError):
+        return True
+    if response.status_code >= 400:
+        return True
+    lines = [line for line in (raw.strip().lower() for raw in response.text.splitlines())
+             if line and not line.startswith("#")]
+    disallowed = [line.split(":", 1)[1].strip() for line in lines if line.startswith("disallow:")]
+    path = parsed.path or "/"
+    return not any(rule and path.startswith(rule) for rule in disallowed)
+
+
 def scrape_email(url):
     url = normalize_url(url)
+    if not allowed_by_robots(url):
+        logger.warning("Blocked by robots.txt: %s", url)
+        return set()
     try:
         response = requests.get(url, timeout=TIMEOUT_SECONDS, headers=HEADERS)
         response.raise_for_status()
