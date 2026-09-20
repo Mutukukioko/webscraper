@@ -11,3 +11,5 @@ the machine was online. The backlog is applied from top to bottom.
 - [x] Add CSV export
 - [x] Add stats dashboard
 - [x] Harden deployment settings and add env.example
+- [x] Extract scraping service layer
+- [ ] Add landing index page

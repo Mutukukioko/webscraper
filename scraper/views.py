@@ -3,24 +3,14 @@ from django.shortcuts import redirect, render
 from .export import emails_to_csv_response
 from .forms import ScrapeForm
 from .models import Email
-from .utils import scrape_email
-
-
-def _known_emails():
-    return set(Email.objects.values_list("email", flat=True))
+from .services import scrape_and_save
 
 
 def scrape_view(request):
     if request.method == "POST":
         form = ScrapeForm(request.POST)
         if form.is_valid():
-            url = form.cleaned_data["url"]
-            known = _known_emails()
-            for email in scrape_email(url):
-                if email in known:
-                    continue
-                Email.objects.create(url=url, email=email)
-                known.add(email)
+            scrape_and_save(form.cleaned_data["url"])
             return redirect("email_list")
     else:
         form = ScrapeForm()
