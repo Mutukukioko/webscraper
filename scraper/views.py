@@ -6,6 +6,10 @@ from .models import Email
 from .services import scrape_and_save
 
 
+def index_view(request):
+    return render(request, "scraper/index.html", {"total": Email.objects.count()})
+
+
 def scrape_view(request):
     if request.method == "POST":
         form = ScrapeForm(request.POST)

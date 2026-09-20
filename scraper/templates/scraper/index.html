@@ -1,0 +1,13 @@
+{% extends 'scraper/base.html' %}
+
+{% block title %}WebScraper{% endblock %}
+
+{% block content %}
+    <h1>WebScraper</h1>
+    <p>Extract email addresses from any website by pasting its URL.</p>
+    <ul>
+        <li><a href="{% url 'scrape' %}">Scrape a website</a></li>
+        <li><a href="{% url 'email_list' %}">Browse emails ({{ total }} collected)</a></li>
+        <li><a href="{% url 'stats' %}">View statistics</a></li>
+    </ul>
+{% endblock %}
