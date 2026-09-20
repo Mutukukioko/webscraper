@@ -12,3 +12,10 @@ def scrape_and_save(url):
         known.add(email)
         saved += 1
     return saved
+
+
+def scrape_many_urls(urls):
+    results = []
+    for url in urls:
+        results.append({"url": url, "saved": scrape_and_save(url)})
+    return results

@@ -1,0 +1,22 @@
+{% extends 'scraper/base.html' %}
+
+{% block title %}Bulk Scrape{% endblock %}
+
+{% block content %}
+    <h1>Bulk Scrape</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Scrape all URLs</button>
+    </form>
+
+    {% if results %}
+        <h2>Results</h2>
+        <ul>
+            {% for result in results %}
+                <li>{{ result.url }} - {{ result.saved }} new email(s)</li>
+            {% endfor %}
+        </ul>
+        <p><a href="{% url 'email_list' %}">Browse collected emails</a></p>
+    {% endif %}
+{% endblock %}

@@ -2,9 +2,9 @@ from django.core.paginator import Paginator
 from django.shortcuts import redirect, render
 
 from .export import emails_to_csv_response
-from .forms import ScrapeForm
+from .forms import BulkScrapeForm, ScrapeForm
 from .models import Email
-from .services import scrape_and_save
+from .services import scrape_and_save, scrape_many_urls
 
 
 def index_view(request):
@@ -20,6 +20,18 @@ def scrape_view(request):
     else:
         form = ScrapeForm()
     return render(request, "scraper/scrape.html", {"form": form})
+
+
+def bulk_scrape_view(request):
+    results = []
+    if request.method == "POST":
+        form = BulkScrapeForm(request.POST)
+        if form.is_valid():
+            urls = [line.strip() for line in form.cleaned_data["urls"].splitlines() if line.strip()]
+            results = scrape_many_urls(urls)
+    else:
+        form = BulkScrapeForm()
+    return render(request, "scraper/bulk.html", {"form": form, "results": results})
 
 
 def _filtered_emails(request):
