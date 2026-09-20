@@ -1,5 +1,7 @@
 import logging
 import re
+import threading
+import time
 import urllib.parse
 
 import requests
@@ -12,6 +14,18 @@ TIMEOUT_SECONDS = 10
 HEADERS = {"User-Agent": "WebScraper/1.0 email-scraper"}
 IGNORED_DOMAINS = {"example.com", "example.org", "example.net"}
 ALLOWED_SCHEMES = ("http", "https")
+MIN_REQUEST_INTERVAL = 0.5
+
+_throttle_lock = threading.Lock()
+_last_request_time = [0.0]
+
+
+def _throttle():
+    with _throttle_lock:
+        elapsed = time.time() - _last_request_time[0]
+        if elapsed < MIN_REQUEST_INTERVAL:
+            time.sleep(MIN_REQUEST_INTERVAL - elapsed)
+        _last_request_time[0] = time.time()
 
 
 def normalize_url(url):
@@ -29,6 +43,7 @@ def normalize_url(url):
 def allowed_by_robots(url):
     parsed = urllib.parse.urlparse(url)
     robots_url = "{}://{}/robots.txt".format(parsed.scheme, parsed.netloc)
+    _throttle()
     try:
         response = requests.get(robots_url, timeout=TIMEOUT_SECONDS, headers=HEADERS)
     except (requests.RequestException, OSError):
@@ -47,6 +62,7 @@ def scrape_email(url):
     if not allowed_by_robots(url):
         logger.warning("Blocked by robots.txt: %s", url)
         return set()
+    _throttle()
     try:
         response = requests.get(url, timeout=TIMEOUT_SECONDS, headers=HEADERS)
         response.raise_for_status()
