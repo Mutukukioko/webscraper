@@ -26,5 +26,5 @@ the machine was online. The backlog is applied from top to bottom.
 - [x] Containerize the app with Docker
 - [x] Export emails as JSON
 - [x] Per-domain detail page
-- [ ] Add logo, favicon and finished base template
+- [x] Add logo, favicon and finished base template
 - [ ] Custom 404 error page

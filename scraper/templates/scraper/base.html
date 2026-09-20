@@ -3,16 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> {% block title %} Document {% endblock %}</title>
+    <title>{% block title %}WebScraper{% endblock %}</title>
     {% load static %}
+    <link rel="icon" href="{% static 'scraper/img/logo.svg' %}" type="image/svg+xml">
     <link rel="stylesheet" href="{% static 'scraper/css/app.css' %}">
 </head>
 <body>
     {% include 'scraper/navbar.html' %}
     <div class="content">
-        {%  block content %}
-
-        {% endblock %}
+        {% block content %}{% endblock %}
     </div>
     <script src="{% static 'scraper/js/app.js' %}"></script>
 </body>
