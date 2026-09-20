@@ -13,3 +13,18 @@ the machine was online. The backlog is applied from top to bottom.
 - [x] Harden deployment settings and add env.example
 - [x] Extract scraping service layer
 - [x] Add landing index page
+- [x] Register email model in the Django admin
+- [ ] Add pagination to the email list
+- [ ] Add search and domain filtering to the email list
+- [ ] Add delete action for individual emails
+- [ ] Bulk scrape multiple URLs in one go
+- [ ] Normalize and validate URLs before scraping
+- [ ] Respect robots.txt when scraping
+- [ ] Throttle requests to be polite to source sites
+- [ ] Expand test coverage for services and new views
+- [ ] Add GitHub Actions CI workflow
+- [ ] Containerize the app with Docker
+- [ ] Export emails as JSON
+- [ ] Per-domain detail page
+- [ ] Add logo, favicon and finished base template
+- [ ] Custom 404 error page
