@@ -22,8 +22,8 @@ the machine was online. The backlog is applied from top to bottom.
 - [x] Respect robots.txt when scraping
 - [x] Throttle requests to be polite to source sites
 - [x] Expand test coverage for services and new views
-- [ ] Add GitHub Actions CI workflow
-- [ ] Containerize the app with Docker
+- [x] Add GitHub Actions CI workflow
+- [x] Containerize the app with Docker
 - [ ] Export emails as JSON
 - [ ] Per-domain detail page
 - [ ] Add logo, favicon and finished base template
